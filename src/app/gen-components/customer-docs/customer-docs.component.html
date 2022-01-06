@@ -1,0 +1,35 @@
+<div class="customer-docs-container">
+  <h3 mat-dialog-title>{{ data.title }}</h3>
+  <mat-dialog-content>
+    <ng-container *ngIf="data.thumbnail == false; else logoInput">
+      <div class="sect-title ml-2">
+        <p style="font-weight: bold; font-style: italic">Scanned copy of:</p>
+      </div>
+      National ID: &nbsp;<input
+        type="file"
+        accept="application/pdf"
+        (change)="getNationalId($event)"
+      />
+      <br />
+      <br />
+      KRA PIN Certificate: &nbsp;<input
+        type="file"
+        accept="application/pdf"
+        (change)="getPinCert($event)"
+      />
+    </ng-container>
+    <ng-template #logoInput>
+      Company Logo: &nbsp;<input
+        type="file"
+        accept="image/png, image/jpeg, image/jpg"
+        (change)="getLogo($event)"
+      />
+    </ng-template>
+  </mat-dialog-content>
+  <mat-dialog-actions class="d-flex justify-content-end">
+    <button class="btn btn-success mr-2" [disabled]="disabled" (click)="save()">
+      Add
+    </button>
+    <button class="btn btn-danger" mat-dialog-close>Cancel</button>
+  </mat-dialog-actions>
+</div>

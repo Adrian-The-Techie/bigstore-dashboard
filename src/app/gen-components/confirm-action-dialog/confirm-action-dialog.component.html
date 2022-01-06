@@ -1,0 +1,41 @@
+<div class="confirm-action-dialog">
+  <ng-container *ngIf="data.type != 'warning'; else warningTitle">
+    <h4 mat-dialog-title>Confirm action</h4>
+  </ng-container>
+
+  <ng-template #warningTitle>
+    <p mat-dialog-title>ERROR!</p>
+  </ng-template>
+</div>
+<hr />
+<mat-dialog-content>
+  <p>{{ data.message }}</p>
+  <ng-container *ngIf="data.items.length == 0; else itemsTable"></ng-container>
+  <ng-template #itemsTable>
+    <div class="items-table">
+      <table class="table table-striped">
+        <thead>
+          <th>Name</th>
+          <th>Quantity</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of data.items">
+            <td>{{ item.name }}</td>
+            <td>{{ item.quantity_to_add }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <h3 *ngIf="data.end != null">{{ data.end }}</h3>
+    </div>
+  </ng-template>
+</mat-dialog-content>
+<hr />
+<mat-dialog-actions class="d-flex justify-content-end">
+  <ng-container *ngIf="data.type != 'warning'; else warningBtn">
+    <button class="btn btn-success mr-3" [mat-dialog-close]="ok()">Yes</button>
+    <button class="btn btn-danger" mat-dialog-close>Cancel</button>
+  </ng-container>
+  <ng-template #warningBtn>
+    <button class="btn btn-danger" mat-dialog-close>OK</button>
+  </ng-template>
+</mat-dialog-actions>

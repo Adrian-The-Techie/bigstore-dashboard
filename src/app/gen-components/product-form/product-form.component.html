@@ -1,0 +1,77 @@
+<div class="terms-of-payment-container">
+  <div class="title">
+    <h2>NEW PRODUCT</h2>
+  </div>
+  <div class="terms m-2">
+    <form [formGroup]="genSettingsForm">
+      <div class="d-inline-flex">
+        <p class="my-auto">Product thumbnail:</p>
+        <span
+          *ngIf="
+            genSettingsForm.get('thumbnail').value == '' || logoIsFile == true;
+            else logo_link
+          "
+          ><input
+            type="file"
+            accept="image/png, image/jpeg, image/jpg"
+            (change)="getLogo($event)"
+        /></span>
+        <ng-template #logo_link>
+          <div class="logo-container">
+            <img
+              src="{{ host }}{{ genSettingsForm.get('thumbnail').value }}"
+              alt="product"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="logo"
+            />
+          </div>
+          <button class="btn btn-info ml-2 my-auto" (click)="updateLogo()">
+            Update Thumbnail
+          </button></ng-template
+        >
+      </div>
+      <br />
+      <br />
+      <img src="" alt="" />
+      <mat-form-field class="w-100 mb-2" appearance="outline">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" autocomplete="off" />
+      </mat-form-field>
+      <br />
+      <mat-form-field class="w-100 mb-2" appearance="outline">
+        <mat-label>Price</mat-label>
+        <input
+          matInput
+          formControlName="price"
+          autocomplete="off"
+          type="number"
+        />
+      </mat-form-field>
+      <br />
+      <div class="form-group">
+        <label for="category">Category</label>
+        <select formControlName="category" class="form-control" id="category">
+          <option *ngFor="let category of categories" [value]="category.id">
+            {{ category.name }}
+          </option>
+        </select>
+      </div>
+
+      <br />
+      <mat-form-field class="w-100 mb-2" appearance="outline">
+        <mat-label>Description </mat-label>
+        <textarea
+          matInput
+          formControlName="description"
+          cols="30"
+          rows="10"
+          placeholder="Brief description of product"
+        ></textarea>
+      </mat-form-field>
+      <div class="d-flex justify-content-end">
+        <button class="btn btn-primary" (click)="save()">Save</button>
+      </div>
+    </form>
+  </div>
+</div>

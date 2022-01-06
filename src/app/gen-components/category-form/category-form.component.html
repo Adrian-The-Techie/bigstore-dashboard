@@ -1,0 +1,41 @@
+<div class="supplier-form-component mb-2 mx-3">
+  <div class="title">
+    <h3>{{ name != "" ? name : "NEW CATEGORY" }}</h3>
+  </div>
+  <div class="supplier-form">
+    <form [formGroup]="categoryForm">
+      <mat-form-field class="mb-2 w-100" appearance="outline">
+        <mat-label>Name</mat-label>
+        <input matInput type="text" formControlName="name" autocomplete="off" />
+      </mat-form-field>
+      <hr />
+      <div class="action-btn" class="d-flex justify-content-end">
+        <div *ngIf="name == ''; else update">
+          <button class="btn btn-primary mr-2" (click)="save(true)">
+            Save and new
+          </button>
+          <button
+            class="btn btn-success"
+            (click)="save()"
+            *ngIf="modal == false; else closeModal"
+          >
+            Save
+          </button>
+        </div>
+      </div>
+      <ng-template #update>
+        <button class="btn btn-secondary" (click)="save()">
+          Update details
+        </button> </ng-template
+      ><ng-template #closeModal>
+        <button
+          class="btn btn-info"
+          (click)="save(false, false)"
+          mat-dialog-close
+        >
+          Save
+        </button>
+      </ng-template>
+    </form>
+  </div>
+</div>
